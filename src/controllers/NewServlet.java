@@ -1,8 +1,7 @@
 package controllers;
-//データベースから複数のメッセージ情報を取得して一覧表示する
 
 import java.io.IOException;
-import java.util.List;
+import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -15,17 +14,18 @@ import models.Task;
 import util.DBUtil;
 
 /**
- * Servlet implementation class IndexServlet
+ * Servlet implementation class NewServlet
  */
-@WebServlet("/index")
-public class IndexServlet extends HttpServlet {
+@WebServlet("/new")
+public class NewServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IndexServlet() {
+    public NewServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -33,10 +33,25 @@ public class IndexServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
-        //getAllMessages を createNamedQuery メソッドの引数に指定して、データベースへの問い合わせを実行、リスト形式で取得
-        List<Task> tasks = em.createNamedQuery("getAllTasks", Task.class).getResultList();
-        response.getWriter().append(Integer.valueOf(tasks.size()).toString());
+        em.getTransaction().begin();
+
+        // インスタンスを作成
+        Task t = new Task();
+
+        String content= "hello";
+        t.setContent(content);
+
+        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+        t.setCreated_at(currentTime);
+        t.setUpdated_at(currentTime);
+
+        // データベースに保存
+        em.persist(t);
+        em.getTransaction().commit();
+
+        response.getWriter().append(Integer.valueOf(t.getId()).toString());
 
         em.close();
     }
+
 }

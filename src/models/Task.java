@@ -1,7 +1,7 @@
 package models;
 //DTOクラス
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+//find() メソッド
 @Entity
+
+//一覧表示するデータを取得するためのJPQL
 @NamedQueries({
     @NamedQuery(
             name = "getAllTasks",
@@ -28,6 +31,8 @@ public class Task{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
+    //"nullable = false" 必須入力が設定されている
     @Column(name = "content", length = 255, nullable = false)
     private String content;
 
@@ -39,6 +44,10 @@ public class Task{
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getContent() {
@@ -65,8 +74,5 @@ public class Task{
         this.updated_at = updated_at;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
 }
