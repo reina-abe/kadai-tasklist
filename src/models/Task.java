@@ -12,7 +12,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-//find() メソッド
 @Entity
 
 //一覧表示するデータを取得するためのJPQL
@@ -32,9 +31,9 @@ public class Task{
     private Integer id;
 
 
-    //"nullable = false" 必須入力が設定されている
-    @Column(name = "content", length = 255, nullable = false)
+    @Column(name = "content", length = 100, nullable = false)
     private String content;
+    //"nullable = false" 必須入力が設定されている
 
     @Column(name = "created_at", nullable = false)
     private Timestamp created_at;

@@ -1,5 +1,5 @@
 package util;
-//DAOクラス
+//DAOクラス (Hibernateに接続するための「おまじない」)
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
